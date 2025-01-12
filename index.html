@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Pet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+        }
+        .pet-container {
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            width: 300px;
+            background-color: #fff;
+        }
+        .pet {
+            font-size: 100px;
+        }
+        .stats {
+            margin: 20px 0;
+        }
+        .stats div {
+            margin: 5px 0;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Virtual Pet</h1>
+    <div class="pet-container">
+        <div class="pet">&#128049;</div> <!-- Cat emoji as the pet -->
+        <div class="stats">
+            <div>Health: <span id="health">100</span></div>
+            <div>Hunger: <span id="hunger">50</span></div>
+            <div>Happiness: <span id="happiness">80</span></div>
+        </div>
+        <button onclick="feedPet()">Feed</button>
+        <button onclick="playWithPet()">Play</button>
+        <button onclick="restPet()">Rest</button>
+    </div>
+
+    <script>
+        // Initial stats
+        let health = 100;
+        let hunger = 50;
+        let happiness = 80;
+
+        // Update stats on the screen
+        function updateStats() {
+            document.getElementById('health').textContent = health;
+            document.getElementById('hunger').textContent = hunger;
+            document.getElementById('happiness').textContent = happiness;
+        }
+
+        // Actions
+        function feedPet() {
+            hunger = Math.max(0, hunger - 10);
+            happiness = Math.min(100, happiness + 5);
+            updateStats();
+        }
+
+        function playWithPet() {
+            happiness = Math.min(100, happiness + 10);
+            hunger = Math.min(100, hunger + 5);
+            updateStats();
+        }
+
+        function restPet() {
+            health = Math.min(100, health + 10);
+            hunger = Math.min(100, hunger + 5);
+            updateStats();
+        }
+
+        // Decrease stats over time
+        setInterval(() => {
+            hunger = Math.min(100, hunger + 1);
+            happiness = Math.max(0, happiness - 1);
+            health = happiness > 20 ? health : Math.max(0, health - 2);
+            updateStats();
+        }, 3000); // Updates every 3 seconds
+
+    </script>
+</body>
+</html>
